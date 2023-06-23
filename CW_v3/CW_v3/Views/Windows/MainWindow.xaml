@@ -1,0 +1,294 @@
+﻿<Window x:Class="CW_v3.Views.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:CW_v3.ViewModels"
+        xmlns:local="clr-namespace:CW_v3"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <Style x:Key="ColoredTabsStyle" TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border x:Name="Border" Padding="25,5,25,5" Margin="2px" BorderBrush="White">
+                            <ContentPresenter x:Name="ContentSite" ContentSource="Header" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="Green" />
+                                <Setter TargetName="Border" Property="Background" Value="BurlyWood" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,5" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="White" />
+                                <Setter TargetName="Border" Property="Background" Value="BurlyWood" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="BurlyWood">
+        <Grid>
+            <TabControl>
+                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Farm"
+                         Style="{DynamicResource ColoredTabsStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="195" MinWidth="195" MaxWidth="195" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <GridSplitter Width="3" VerticalAlignment="Stretch" Panel.ZIndex="1000" />
+                        <Grid Background="Wheat" Grid.Column="0">
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadAnimalsTypes}"
+                                            HorizontalContentAlignment="Left"
+                                             >
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                    >
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Animals types" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadAnimals}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Animals" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadLandAddress}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Land address" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadEmployees}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Employees" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadTypeOfWorks}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Type of work" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadPlantations}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Plantation" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Background="White" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            Content="{Binding CurrentFarmUS}" />
+
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Import\Export"
+                         Style="{DynamicResource ColoredTabsStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="195" MinWidth="195" MaxWidth="195" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <GridSplitter Width="3" VerticalAlignment="Stretch" Panel.ZIndex="1000" />
+                        <Grid Background="Wheat" Grid.Column="0">
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical">
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadExports}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Export" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadExportAddresses}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Restaurant" Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Export address" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadExportTypes}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Export type" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadExportWarehouses}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Export warehouse" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadImports}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Import" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadImportAddresses}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Import address" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadImportTypes}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Import type" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="60" Margin="10 10 10 10"
+                                            Command="{Binding LoadLocationType}"
+                                            HorizontalContentAlignment="Left"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                                                     Height="25"
+                                                                     Width="25" Margin="0 10" />
+                                            <TextBlock Text="Location type" Foreground="#ffffff"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5 10" />
+                                        </StackPanel>
+                                    </Button>
+
+                                </StackPanel>
+
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Background="White">
+                            <ContentControl Content="{Binding CurrentExportImportUS}" />
+                        </Grid>
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Custom Query"
+                         Style="{DynamicResource ColoredTabsStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Text="{Binding CurrentCustomQuery}" Grid.Column="0" Background="White" FontSize="16" 
+                                     Foreground="Black" VerticalContentAlignment="Top" AcceptsReturn="True"/>
+                            <Button Grid.Column="1" Content="Execute" FontSize="30" VerticalAlignment="Center" Height="113" 
+                                    Command="{Binding ExecuteCustomQuery}"/>
+                        </Grid>
+
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding CurrentDataView}" AutoGenerateColumns="true">
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

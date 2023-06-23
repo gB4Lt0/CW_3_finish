@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="CW_v3.Views.UserControls.ExportUS"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:CW_v3.Views.UserControls"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:CW_v3.ViewModels.ImportExportViewModels"
+             d:DataContext="{d:DesignInstance vm:ExportViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="{Binding FontSizeUserControl}">
+
+    <Grid >
+        <Grid Visibility="{Binding ViewDataVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30px" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="Create export" Command="{Binding EnterCreatingDataStateCommand}"
+                    />
+
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False"
+                      ItemsSource="{Binding Exports}"
+                      ScrollViewer.CanContentScroll="True"
+                      VerticalScrollBarVisibility="Visible"
+                      HorizontalScrollBarVisibility="Visible">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export address id"
+                                        Binding="{Binding ExportAddressesId}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export warehouse type id"
+                                        Binding="{Binding ExportWarehouseId}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export type id"
+                                        Binding="{Binding ExportTypeId}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Name"
+                                        Binding="{Binding ExportName}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Quantity"
+                                        Binding="{Binding Quantity}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Price"
+                                        Binding="{Binding Price}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Sale date"
+                                        Binding="{Binding SaleDate}" />
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete"
+                                        Command="{Binding Path=DataContext.DeleteRecord, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Visibility="{Binding CreatingDataVisibility}">
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="20 20">
+                    <TextBox IsReadOnly="True" Text="Export address"
+                             TextAlignment="Left" />
+                    <TextBox IsReadOnly="True" Text="Export warehouse"
+                             TextAlignment="Left" />
+                    <TextBox IsReadOnly="True" Text="Sale date"
+                             TextAlignment="Left" />
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="20 20">
+                    <ComboBox ItemsSource="{Binding Path=ExportAddresses}"
+                              HorizontalContentAlignment="Center"
+                              DisplayMemberPath="CompanyName"
+                              SelectedValuePath="CompanyName"
+                              SelectedItem="{Binding Path=SelectedExportAddress}">
+                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding Path=ExportWarehouses}"
+                              HorizontalContentAlignment="Center"
+                              DisplayMemberPath="ProductName"
+                              SelectedValuePath="ProductName"
+                              SelectedItem="{Binding Path=SelectedExportWarehouses}">
+                    </ComboBox>
+                  
+                    <DatePicker Text="{Binding SaleDate}" />
+                </StackPanel>
+
+            </Grid>
+
+            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create"
+                    VerticalAlignment="Bottom">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding CreateRecord}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+
+        <Grid Visibility="{Binding EditDataVisibility}">
+
+        </Grid>
+    </Grid>
+</UserControl>
