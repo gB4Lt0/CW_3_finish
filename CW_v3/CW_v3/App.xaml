@@ -11,22 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.green.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            <Style TargetType="Button" x:Key="MenuButton">
-                <Setter Property="Background" Value="Green" />
-                <Setter Property="Foreground" Value="White" />
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="Red"/>
-                        <Setter Property="Foreground" Value="Red"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="Button" x:Key="CreateButton">
-                <Setter Property="Background" Value="Green" />
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontSize" Value="15"/>
-            </Style>
+
             
             
         </ResourceDictionary>

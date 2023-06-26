@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
+using System.Windows;
 using CW_v3.Models;
 using CW_v3.ViewModels.Base;
+using CW_v3.Infrastructure.Commands;
 
 namespace CW_v3.ViewModels.FarmUserControls
 {
@@ -19,7 +22,7 @@ namespace CW_v3.ViewModels.FarmUserControls
             get => _animalTypes;
             set => SetField(ref _animalTypes, value);
         }
-        
+
         private List<LandAddress> _landAddresses;
         public List<LandAddress> LandAddresses
         {
@@ -64,7 +67,7 @@ namespace CW_v3.ViewModels.FarmUserControls
 
         protected override void OnCreateRecordCommandExecute(object p)
         {
-            _databaseService.CreateAnimal(SelectedLandAddress.Id, SelectedAnimalType.Id, 
+            _databaseService.CreateAnimal(SelectedLandAddress.Id, SelectedAnimalType.Id,
                                             Gender, Quantity, Consumption);
             UpdateData();
             EnterViewDataStateCommand.Execute(p);
@@ -74,6 +77,34 @@ namespace CW_v3.ViewModels.FarmUserControls
         {
             Animal animal = p as Animal;
             _databaseService.DeleteAnimal(animal.Id);
+            UpdateData();
+        }
+
+
+        private Animal _currentAnimal;
+
+        public ICommand EditRecord { get; }
+
+        private bool CanEditRecordCommandExecute(object p) => true;
+
+        private void OnEditRecordCommandExecute(object p)
+        {
+            _currentAnimal = p as Animal;
+            Quantity = _currentAnimal.Quantity;
+            Consumption = _currentAnimal.Consumption;
+
+            EnterEditFieldStateCommand.Execute(p);
+        }
+
+        public ICommand SaveEditingRecord { get; }
+
+        private bool CanSaveEditingRecordCommandExecute(object p) => true;
+
+        private void OnSaveEditingRecordCommandExecute(object p)
+        {
+            EnterViewDataStateCommand.Execute(p);
+
+            _databaseService.EditAnimals(_currentAnimal.Id, _currentAnimal.LandAddressesId, _currentAnimal.AnimalTypeId, _currentAnimal.Gender, Quantity, Consumption);
             UpdateData();
         }
 
@@ -87,6 +118,8 @@ namespace CW_v3.ViewModels.FarmUserControls
         public AnimalsViewModel() : base()
         {
             UpdateData();
+            EditRecord = new LambdaCommand(OnEditRecordCommandExecute, CanEditRecordCommandExecute);
+            SaveEditingRecord = new LambdaCommand(OnSaveEditingRecordCommandExecute, CanSaveEditingRecordCommandExecute);
         }
     }
 }

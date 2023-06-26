@@ -54,7 +54,7 @@ namespace CW_v3.ViewModels.ImportExportViewModels
         protected override void OnDeleteRecordCommandExecute(object p)
         {
             ExportAddress exportAddress = p as ExportAddress;
-            _databaseService.DeleteImportAddress(exportAddress.Id);
+            _databaseService.DeleteExportAddresses(exportAddress.Id);
             UpdateData();
         }
 

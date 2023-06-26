@@ -111,12 +111,9 @@ namespace CW_v3.ViewModels.Base
 
         protected UserControlViewModel()
         {
-            EnterViewDataStateCommand =
-                new LambdaCommand(OnEnterViewDataStateCommandExecute, CanEnterViewDataStateCommandExecute);
-            EnterCreatingDataStateCommand = new LambdaCommand(OnEnterCreatingDataStateCommandExecute,
-                CanEnterCreatingDataStateCommandExecute);
-            EnterEditFieldStateCommand =
-                new LambdaCommand(OnEnterEditFieldStateCommandExecute, CanEnterEditFieldStateCommandExecute);
+            EnterViewDataStateCommand = new LambdaCommand(OnEnterViewDataStateCommandExecute, CanEnterViewDataStateCommandExecute);
+            EnterCreatingDataStateCommand = new LambdaCommand(OnEnterCreatingDataStateCommandExecute, CanEnterCreatingDataStateCommandExecute);
+            EnterEditFieldStateCommand = new LambdaCommand(OnEnterEditFieldStateCommandExecute, CanEnterEditFieldStateCommandExecute);
 
             CreateRecord = new LambdaCommand(OnCreateRecordCommandExecute, CanCreateRecordCommandExecute);
             DeleteRecord = new LambdaCommand(OnDeleteRecordCommandExecute, CanDeleteRecordCommandExecute);

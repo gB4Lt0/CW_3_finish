@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
+using CW_v3.Infrastructure.Commands;
 using CW_v3.Models;
 using CW_v3.ViewModels.Base;
 
@@ -44,6 +46,32 @@ namespace CW_v3.ViewModels.FarmUserControls
             UpdateData();
         }
 
+        private TypeOfWork _currentTypeOfWork;
+
+        public ICommand EditRecord { get; }
+
+        private bool CanEditRecordCommandExecute(object p) => true;
+
+        private void OnEditRecordCommandExecute(object p)
+        {
+            _currentTypeOfWork = p as TypeOfWork;
+            Salary = _currentTypeOfWork.Salary;
+
+            EnterEditFieldStateCommand.Execute(p);
+        }
+
+        public ICommand SaveEditingRecord { get; }
+
+        private bool CanSaveEditingRecordCommandExecute(object p) => true;
+
+        private void OnSaveEditingRecordCommandExecute(object p)
+        {
+            EnterViewDataStateCommand.Execute(p);
+
+            _databaseService.EditTypeOfWork(_currentTypeOfWork.Id, _currentTypeOfWork.TypeOfWorkName, Salary);
+            UpdateData();
+        }
+
         public override void UpdateData()
         {
             TypeOfWorks = _databaseService.GetAllTypeOfWork();
@@ -52,6 +80,9 @@ namespace CW_v3.ViewModels.FarmUserControls
         public TypeOfWorkViewModel() : base()
         {
             UpdateData();
+
+            EditRecord = new LambdaCommand(OnEditRecordCommandExecute, CanEditRecordCommandExecute);
+            SaveEditingRecord = new LambdaCommand(OnSaveEditingRecordCommandExecute, CanSaveEditingRecordCommandExecute);
         }
     }
 }

@@ -54,16 +54,6 @@ namespace CW_v3.ViewModels.ImportExportViewModels
             set => SetField(ref _pricePerKilo, value);
         }
 
-        public ICommand SellExport { get; }
-        private bool CanSellExportCommandExecute(object p) => true;
-
-        private void OnSellExportCommandExecute(object p)
-        {
-            ExportWarehouse exportWarehouse = p as ExportWarehouse;
-            _databaseService.SellExport(exportWarehouse.Id);
-            UpdateData();
-        }
-
         protected override void OnCreateRecordCommandExecute(object p)
         {
             _databaseService.CreateExportWarehouse(SelectedExportType.Id, WarehouseName, Quantity, PricePerKilo);
@@ -87,7 +77,6 @@ namespace CW_v3.ViewModels.ImportExportViewModels
         public ExportWarehousesViewModel() : base()
         {
             UpdateData();
-            SellExport = new LambdaCommand(OnSellExportCommandExecute, CanSellExportCommandExecute);
         }
     }
 }

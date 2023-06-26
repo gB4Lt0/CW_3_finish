@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using CW_v3.Infrastructure.Commands;
 using CW_v3.Models;
 using CW_v3.ViewModels.Base;
 
@@ -58,6 +61,33 @@ namespace CW_v3.ViewModels.FarmUserControls
             UpdateData();
         }
 
+        private LandAddress _currentLandAddress;
+
+        public ICommand EditRecord { get; }
+
+        private bool CanEditRecordCommandExecute(object p) => true;
+
+        private void OnEditRecordCommandExecute(object p)
+        {
+            EnterEditFieldStateCommand.Execute(p);
+            _currentLandAddress = p as LandAddress;
+            SelectedLocation = LocationTypes.Where(x => x.Id == _currentLandAddress.LocationTypeId).FirstOrDefault();
+            BranchName = _currentLandAddress.BranchName;
+            Address = _currentLandAddress.Address;
+        }
+
+        public ICommand SaveEditingRecord { get; }
+
+        private bool CanSaveEditingRecordCommandExecute(object p) => true;
+
+        private void OnSaveEditingRecordCommandExecute(object p)
+        {
+            EnterViewDataStateCommand.Execute(p);
+
+            _databaseService.EditLandAddresses(_currentLandAddress.Id, SelectedLocation.Id, BranchName, Address);
+            UpdateData();
+        }
+
         public override void UpdateData()
         {
             LandAddresses = _databaseService.GetAllLandAddresses();
@@ -67,6 +97,8 @@ namespace CW_v3.ViewModels.FarmUserControls
         public LandAddressViewModel() : base()
         {
             UpdateData();
+            EditRecord = new LambdaCommand(OnEditRecordCommandExecute, CanEditRecordCommandExecute);
+            SaveEditingRecord = new LambdaCommand(OnSaveEditingRecordCommandExecute, CanSaveEditingRecordCommandExecute);
         }
     }
 }

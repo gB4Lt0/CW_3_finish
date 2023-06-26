@@ -9,25 +9,39 @@
              xmlns:vm="clr-namespace:CW_v3.ViewModels.FarmUserControls"
              d:DataContext="{d:DesignInstance vm:AnimalsViewModel}"
              d:DesignHeight="450" d:DesignWidth="800" FontSize="{Binding FontSizeUserControl}">
-    
-    
-    <Grid >
+
+
+    <Grid>
         <Grid Visibility="{Binding ViewDataVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px" />
-                <RowDefinition />
+                <RowDefinition Height="40px"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Create animal" Command="{Binding EnterCreatingDataStateCommand}" 
-                    />
+            <Border Margin = "120,2,120,2">
+                <Button Grid.Row="0" Content="Create animal" Command="{Binding EnterCreatingDataStateCommand}" Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       ItemsSource="{Binding Animals}"
                       ScrollViewer.CanContentScroll="True"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible" >
+                      HorizontalScrollBarVisibility="Visible"
+                      Background="Wheat"
+                      Foreground="Black">
 
-                <DataGrid.Columns >
+                <DataGrid.Columns>
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Land Addresses Id"
                                         Binding="{Binding LandAddressesId}" />
@@ -37,14 +51,23 @@
                                         Binding="{Binding Gender}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Quantity"
                                         Binding="{Binding Quantity}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Consumption"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Consumption(kg)"
                                         Binding="{Binding Consumption}" />
-                    
-                    
+
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" 
+                                <Button Content="Edit" Foreground="White"
+                                        Command="{Binding Path=DataContext.EditRecord, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Foreground="White"
                                         Command="{Binding Path=DataContext.DeleteRecord, 
                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                         CommandParameter="{Binding}" />
@@ -62,7 +85,6 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="20 20">
                     <TextBox IsReadOnly="True" Text="Gender" TextAlignment="Left"/>
@@ -71,29 +93,51 @@
                     <TextBox IsReadOnly="True" Text="Land address" TextAlignment="Left"/>
                     <TextBox IsReadOnly="True" Text="Animal type" TextAlignment="Left"/>
                 </StackPanel>
-                
+
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="20 20">
                     <TextBox Text="{Binding Gender}"
-                             TextAlignment="Center"/>    
+                             TextAlignment="Center"/>
                     <TextBox Text="{Binding Quantity}"
-                             TextAlignment="Center"/>  
+                             TextAlignment="Center"/>
                     <TextBox Text="{Binding Consumption}"
-                             TextAlignment="Center"/>  
+                             TextAlignment="Center"/>
                     <ComboBox ItemsSource="{Binding Path=LandAddresses}" HorizontalContentAlignment="Center"
-                              DisplayMemberPath="Address"
-                              SelectedValuePath="Address"
+                              DisplayMemberPath="BranchName"
+                              SelectedValuePath="BranchName"
                               SelectedItem="{Binding Path=SelectedLandAddress}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
                     </ComboBox>
                     <ComboBox ItemsSource="{Binding Path=AnimalTypes}" HorizontalContentAlignment="Center"
                               DisplayMemberPath="AnimalTypeName"
                               SelectedValuePath="AnimalTypeName"
                               SelectedItem="{Binding Path=SelectedAnimalType}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
                     </ComboBox>
                 </StackPanel>
-     
             </Grid>
 
-            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create" VerticalAlignment="Bottom">
+
+            <Button Width="170px" Height="40px" 
+                    FontSize="{Binding FontSizeUserControl}" 
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Create" 
+                    VerticalAlignment="Bottom"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+
+                    Foreground="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CreateRecord}" />
@@ -101,9 +145,42 @@
                 </i:Interaction.Triggers>
             </Button>
         </Grid>
-
         <Grid Visibility="{Binding EditDataVisibility}">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="20 20">
+                    <TextBox IsReadOnly="True" Text="Quantity" TextAlignment="Left"/>
+                    <TextBox IsReadOnly="True" Text="Consumption" TextAlignment="Left"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="20 20">
+                    <TextBox Text="{Binding Quantity}"
+                             TextAlignment="Center"/>
+                    <TextBox Text="{Binding Consumption}"
+                             TextAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+
+            <Button Width="170px" Height="40px" 
+                    FontSize="{Binding FontSizeUserControl}" 
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Edit" 
+                    VerticalAlignment="Bottom"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+
+                    Foreground="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding SaveEditingRecord}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

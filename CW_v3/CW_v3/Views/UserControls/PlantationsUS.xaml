@@ -10,42 +10,61 @@
              xmlns:farmUserControls="clr-namespace:CW_v3.ViewModels.FarmUserControls"
              d:DataContext="{d:DesignInstance farmUserControls:PlantationViewModel}"
              d:DesignHeight="450" d:DesignWidth="800" FontSize="{Binding FontSizeUserControl}">
-    
+
     <Grid>
         <Grid Visibility="{Binding ViewDataVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px" />
+                <RowDefinition Height="40px" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Create plantation" Command="{Binding EnterCreatingDataStateCommand}" 
-                    />
+
+
+            <Border Margin = "120,2,120,2">
+                <Button Grid.Row="0" Foreground="White" Content="Create plantation" Command="{Binding EnterCreatingDataStateCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
+
+
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       ItemsSource="{Binding Plantations}"
                       ScrollViewer.CanContentScroll="True"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible" >
+                      HorizontalScrollBarVisibility="Visible"
+                      Background="Wheat"
+                      Foreground="Black">
 
                 <DataGrid.Columns >
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Plantation name"
                                         Binding="{Binding  PlantationTypeName}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Plantation land address id"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Land Address Id"
                                         Binding="{Binding  LandAddressesId}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Plantation area"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Quantity(or m2)"
                                         Binding="{Binding  Quantity}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Plantation area"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Planting Date"
                                         Binding="{Binding  PlantingDate}" />
-                   
-              
+
+
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Delete" 
                                         Command="{Binding Path=DataContext.DeleteRecord, 
                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}"
+                                        Foreground="White"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -60,33 +79,46 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
+
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="20 20">
                     <TextBox IsReadOnly="True" Text="Land address" TextAlignment="Left"/>
                     <TextBox IsReadOnly="True" Text="Plantation name" TextAlignment="Left"/>
-                    <TextBox IsReadOnly="True" Text="Plantation area" TextAlignment="Left"/>
+                    <TextBox IsReadOnly="True" Text="Quantity(or m2)" TextAlignment="Left"/>
                     <TextBox IsReadOnly="True" Text="Plantation date" TextAlignment="Left"/>
                 </StackPanel>
-                
+
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="20 20">
                     <ComboBox ItemsSource="{Binding Path=LandAddresses}"
                               HorizontalContentAlignment="Center"
                               DisplayMemberPath="BranchName"
                               SelectedValuePath="BranchName"
                               SelectedItem="{Binding Path=SelectedLandAddress}">
-                        
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
                     </ComboBox>
                     <TextBox Text="{Binding PlantationName}"
-                             TextAlignment="Center"/> 
+                             TextAlignment="Center"/>
                     <TextBox Text="{Binding PlantationQuantity}"
-                             TextAlignment="Center"/> 
-                    <DatePicker Text="{Binding PlantationDate}"/> 
+                             TextAlignment="Center"/>
+                    <DatePicker SelectedDate="{Binding PlantationDate}"/>
                 </StackPanel>
-     
+
             </Grid>
 
-            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create" VerticalAlignment="Bottom">
+            <Button Width="170px" Height="40px" 
+                    FontSize="{Binding FontSizeUserControl}" 
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Create" 
+                    Foreground="White"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+                    VerticalAlignment="Bottom">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CreateRecord}" />

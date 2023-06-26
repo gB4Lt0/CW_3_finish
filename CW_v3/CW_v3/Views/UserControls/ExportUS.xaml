@@ -13,24 +13,40 @@
     <Grid >
         <Grid Visibility="{Binding ViewDataVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px" />
+                <RowDefinition Height="40px" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Create export" Command="{Binding EnterCreatingDataStateCommand}"
-                    />
+            <Border Margin = "120,2,120,2">
+                <Button Grid.Row="0" Content="Create export" Command="{Binding EnterCreatingDataStateCommand}" Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
+
+
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       ItemsSource="{Binding Exports}"
                       ScrollViewer.CanContentScroll="True"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible">
+                      HorizontalScrollBarVisibility="Visible"
+                      Background="Wheat"
+                      Foreground="Black">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export address id"
                                         Binding="{Binding ExportAddressesId}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export warehouse type id"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export warehouse id"
                                         Binding="{Binding ExportWarehouseId}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Export type id"
                                         Binding="{Binding ExportTypeId}" />
@@ -49,7 +65,8 @@
                                 <Button Content="Delete"
                                         Command="{Binding Path=DataContext.DeleteRecord, 
                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}"
+                                        Foreground="White"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -82,21 +99,41 @@
                               DisplayMemberPath="CompanyName"
                               SelectedValuePath="CompanyName"
                               SelectedItem="{Binding Path=SelectedExportAddress}">
+
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+
                     </ComboBox>
                     <ComboBox ItemsSource="{Binding Path=ExportWarehouses}"
                               HorizontalContentAlignment="Center"
                               DisplayMemberPath="ProductName"
                               SelectedValuePath="ProductName"
                               SelectedItem="{Binding Path=SelectedExportWarehouses}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
                     </ComboBox>
-                  
-                    <DatePicker Text="{Binding SaleDate}" />
+                    <DatePicker SelectedDate="{Binding SaleDate}"/>
                 </StackPanel>
 
             </Grid>
 
-            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create"
-                    VerticalAlignment="Bottom">
+            <Button Width="170px" Height="40px" FontSize="{Binding FontSizeUserControl}"
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Create" 
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+                    VerticalAlignment="Bottom" 
+                    Foreground="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CreateRecord}" />

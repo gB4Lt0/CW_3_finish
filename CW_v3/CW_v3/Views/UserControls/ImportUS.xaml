@@ -13,18 +13,34 @@
     <Grid>
         <Grid Visibility="{Binding ViewDataVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px" />
+                <RowDefinition Height="40px" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Create import" Command="{Binding EnterCreatingDataStateCommand}"
-                     />
+            <Border Margin = "120,2,120,2">
+                <Button Grid.Row="0" Foreground="White" Content="Create import" Command="{Binding EnterCreatingDataStateCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
+
+
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       ItemsSource="{Binding Imports}"
                       ScrollViewer.CanContentScroll="True"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible">
+                      HorizontalScrollBarVisibility="Visible"
+                      Background="Wheat"
+                      Foreground="Black">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
@@ -36,8 +52,10 @@
                                         Binding="{Binding ImportName}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Quantity"
                                         Binding="{Binding Quantity}" />
-                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Price"
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Price(UAH)"
                                         Binding="{Binding Price}" />
+                    <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Import Date"
+                                        Binding="{Binding ImportDate}" />
 
 
                     <DataGridTemplateColumn>
@@ -46,7 +64,8 @@
                                 <Button Content="Delete"
                                         Command="{Binding Path=DataContext.DeleteRecord, 
                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}" 
+                                            Foreground="White"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -72,7 +91,9 @@
                              TextAlignment="Left" />
                     <TextBox IsReadOnly="True" Text="Quantity"
                              TextAlignment="Left" />
-                    <TextBox IsReadOnly="True" Text="Price"
+                    <TextBox IsReadOnly="True" Text="Price(UAH)"
+                             TextAlignment="Left" />
+                    <TextBox IsReadOnly="True" Text="Import Date"
                              TextAlignment="Left" />
 
                 </StackPanel>
@@ -84,6 +105,14 @@
                               SelectedValuePath="CompanyName"
                               SelectedItem="{Binding Path=SelectedImportAddress}">
 
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+
                     </ComboBox>
                     <ComboBox ItemsSource="{Binding Path=ImportTypes}"
                               HorizontalContentAlignment="Center"
@@ -93,10 +122,10 @@
 
                         <ComboBox.ItemContainerStyle>
                             <Style TargetType="ComboBoxItem">
-                                <Setter Property="Background" Value="#1e1f22" />
-                                <Setter Property="BorderBrush" Value="#1e1f22" />
+                                <Setter Property="Background" Value="Wheat"/>
+                                <Setter Property="BorderBrush" Value="Wheat"/>
+                                <Setter Property="Foreground" Value="Black"/>
                             </Style>
-
                         </ComboBox.ItemContainerStyle>
 
                     </ComboBox>
@@ -106,11 +135,19 @@
                              TextAlignment="Center" />
                     <TextBox Text="{Binding Price}"
                              TextAlignment="Center" />
+
+                    <DatePicker SelectedDate="{Binding ImportDate}"/>
                 </StackPanel>
 
             </Grid>
 
-            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create"
+            <Button Width="170px" Height="40px"
+                    FontSize="{Binding FontSizeUserControl}" 
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Create"
+                    Foreground="White"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
                     VerticalAlignment="Bottom">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">

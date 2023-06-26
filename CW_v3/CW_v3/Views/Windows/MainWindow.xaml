@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:CW_v3"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
 
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -18,13 +18,13 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Border x:Name="Border" Padding="25,5,25,5" Margin="2px" BorderBrush="White">
+                        <Border x:Name="Border" Padding="25,5,25,5" Margin="2px" BorderBrush="#4caf50" CornerRadius="4,4,4,4">
                             <ContentPresenter x:Name="ContentSite" ContentSource="Header" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="Green" />
-                                <Setter TargetName="Border" Property="Background" Value="BurlyWood" />
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="#4caf50" />
+                                <Setter TargetName="Border" Property="Background" Value="Wheat" />
                                 <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,5" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
@@ -41,11 +41,11 @@
     <Grid Background="BurlyWood">
         <Grid>
             <TabControl>
-                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Farm"
-                         Style="{DynamicResource ColoredTabsStyle}">
+                <TabItem FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Header="Farm"
+                         Style="{DynamicResource ColoredTabsStyle}" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="195" MinWidth="195" MaxWidth="195" />
+                            <ColumnDefinition Width="216" MinWidth="195" MaxWidth="216" />
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
                         <GridSplitter Width="3" VerticalAlignment="Stretch" Panel.ZIndex="1000" />
@@ -58,11 +58,9 @@
                                              >
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                                     >
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="ListBoxOutline" Height="25"
                                                                      Width="25" Margin="0 10" />
-                                            <TextBlock Text="Animals types" Foreground="#ffffff"
-                                                       VerticalAlignment="Center"
-                                                       Margin="5 10" />
+                                            <TextBlock Text="Animals types" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 10" />
                                         </StackPanel>
                                     </Button>
                                     <Button Height="60" Margin="10 10 10 10"
@@ -70,8 +68,8 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
-                                                                     Width="25" Margin="0 10" />
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="cow" Height="30"
+                                                                     Width="30" Margin="0 10" />
                                             <TextBlock Text="Animals" Foreground="#ffffff"
                                                        VerticalAlignment="Center"
                                                        Margin="5 10" />
@@ -94,7 +92,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="AccountGroupOutline" Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Employees" Foreground="#ffffff"
                                                        VerticalAlignment="Center"
@@ -106,7 +104,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="briefcase"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Type of work" Foreground="#ffffff"
@@ -119,7 +117,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="SproutOutline"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Plantation" Foreground="#ffffff"
@@ -131,7 +129,7 @@
                             </ScrollViewer>
                         </Grid>
 
-                        <Grid Grid.Column="1" Background="White" HorizontalAlignment="Stretch"
+                        <Grid Grid.Column="1" Background="Wheat" HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch">
                             <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             Content="{Binding CurrentFarmUS}" />
@@ -139,12 +137,12 @@
                         </Grid>
                     </Grid>
                 </TabItem>
-                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Import\Export"
+                <TabItem FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Header="Import\Export"
                          Style="{DynamicResource ColoredTabsStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="195" MinWidth="195" MaxWidth="195" />
-                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="216" MinWidth="195" MaxWidth="216"/>
+                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <GridSplitter Width="3" VerticalAlignment="Stretch" Panel.ZIndex="1000" />
                         <Grid Background="Wheat" Grid.Column="0">
@@ -155,7 +153,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Notebook" Height="25"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="NotebookEdit" Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Export" Foreground="#ffffff"
                                                        VerticalAlignment="Center"
@@ -167,7 +165,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Restaurant" Height="25"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="MapMarkerMultiple" Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Export address" Foreground="#ffffff"
                                                        VerticalAlignment="Center"
@@ -179,7 +177,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Export"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Export type" Foreground="#ffffff"
@@ -192,10 +190,10 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Warehouse"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
-                                            <TextBlock Text="Export warehouse" Foreground="#ffffff"
+                                            <TextBlock Text="Export Warehouse" Foreground="#ffffff"
                                                        VerticalAlignment="Center"
                                                        Margin="5 10" />
                                         </StackPanel>
@@ -205,7 +203,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="NotebookEdit"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Import" Foreground="#ffffff"
@@ -218,7 +216,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="MapMarkerMultiple"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Import address" Foreground="#ffffff"
@@ -231,7 +229,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Import"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Import type" Foreground="#ffffff"
@@ -244,7 +242,7 @@
                                             HorizontalContentAlignment="Left"
                                             >
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Information"
+                                            <materialDesign:PackIcon Foreground="#ffffff" Kind="Map"
                                                                      Height="25"
                                                                      Width="25" Margin="0 10" />
                                             <TextBlock Text="Location type" Foreground="#ffffff"
@@ -258,18 +256,18 @@
                             </ScrollViewer>
                         </Grid>
 
-                        <Grid Grid.Column="1" Background="White">
+                        <Grid Grid.Column="1" Background="Wheat">
                             <ContentControl Content="{Binding CurrentExportImportUS}" />
                         </Grid>
 
                     </Grid>
                 </TabItem>
 
-                <TabItem FontWeight="Bold" HorizontalAlignment="Center" Header="Custom Query"
+                <TabItem FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Header="Custom Query"
                          Style="{DynamicResource ColoredTabsStyle}">
-                    <Grid>
+                    <Grid Background="Wheat">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition Height="95"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -278,13 +276,20 @@
                                 <ColumnDefinition Width="0.5*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Text="{Binding CurrentCustomQuery}" Grid.Column="0" Background="White" FontSize="16" 
-                                     Foreground="Black" VerticalContentAlignment="Top" AcceptsReturn="True"/>
-                            <Button Grid.Column="1" Content="Execute" FontSize="30" VerticalAlignment="Center" Height="113" 
-                                    Command="{Binding ExecuteCustomQuery}"/>
+                            <TextBox Text="{Binding CurrentCustomQuery}" Grid.Column="0" Background="Wheat" FontSize="18" Foreground="Black" VerticalContentAlignment="Top" AcceptsReturn="True" BorderBrush="Black"/>
+
+                            <Border Grid.Column="1" Padding="10">
+                                <Button  Content="Execute" FontSize="25" VerticalAlignment="Center" Height="60" Foreground="White" Command="{Binding ExecuteCustomQuery}"/>
+                            </Border>
+                            
+                            
+
+                             
+
+                            
                         </Grid>
 
-                        <DataGrid Grid.Row="1" ItemsSource="{Binding CurrentDataView}" AutoGenerateColumns="true">
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding CurrentDataView}" AutoGenerateColumns="true" Background="Wheat" Foreground="Black">
                         </DataGrid>
                     </Grid>
                 </TabItem>

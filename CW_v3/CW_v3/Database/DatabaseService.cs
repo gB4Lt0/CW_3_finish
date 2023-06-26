@@ -380,12 +380,12 @@ namespace CW_v3.Database
             ExecuteQuery(query);
         }
 
-        public void EditAnimals(int animalsId, int landAddressesId, int animalTypeId, int genderId, int quantity,
+        public void EditAnimals(int animalsId, int landAddressesId, int animalTypeId, string gender, int quantity,
             int consumption)
         {
             StringBuilder query = new StringBuilder();
             query.Append(
-                $"UPDATE Animals SET land_addresses_id = \"{landAddressesId}\", animal_type_id= \"{animalTypeId}\", gender_id = \"{genderId}\", quantity = \"{quantity}\", consumption = \"{consumption}\"");
+                $"UPDATE Animals SET land_addresses_id = \"{landAddressesId}\", animal_type_id=\"{animalTypeId}\", geneder=\"{gender}\", quantity = \"{quantity}\", consumption = \"{consumption}\"");
             query.Append($"WHERE id = {animalsId}");
             ExecuteQuery(query.ToString());
         }
@@ -730,10 +730,5 @@ namespace CW_v3.Database
         }
 
         #endregion
-
-        public void SellExport(int exportWarehouseId)
-        {
-            
-        }
     }
 }

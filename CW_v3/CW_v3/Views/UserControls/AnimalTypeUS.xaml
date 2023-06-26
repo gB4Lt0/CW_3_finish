@@ -9,36 +9,54 @@
              xmlns:vm="clr-namespace:CW_v3.ViewModels.FarmUserControls"
              d:DataContext="{d:DesignInstance vm:AnimalTypeViewModel}"
              d:DesignHeight="450" d:DesignWidth="800" FontSize="{Binding FontSizeUserControl}">
-    
+
     <Grid >
         <Grid Visibility="{Binding ViewDataVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30px" />
+                <RowDefinition Height="40px" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Create animal type" Command="{Binding EnterCreatingDataStateCommand}" 
-                    />
+            <Border Margin = "120,2,120,2">
+                <Button Grid.Row="0" Content="Create animal type" Command="{Binding EnterCreatingDataStateCommand}" Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </Border>
+
+
+
 
             <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       ItemsSource="{Binding AnimalsTypes}"
                       ScrollViewer.CanContentScroll="True"
                       VerticalScrollBarVisibility="Visible"
-                      HorizontalScrollBarVisibility="Visible" >
+                      HorizontalScrollBarVisibility="Visible"
+                      Background="Wheat"
+                      Foreground="Black">
 
                 <DataGrid.Columns >
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Id" Binding="{Binding Id}" />
                     <DataGridTextColumn IsReadOnly="True" Width="1*" Header="Animal type name"
                                         Binding="{Binding AnimalTypeName}" />
-                    
-                    
+
+
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Delete" 
                                         Command="{Binding Path=DataContext.DeleteRecord, 
                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}" Foreground="White"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -53,21 +71,27 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
+
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="20 20">
                     <TextBox IsReadOnly="True" Text="Animal type name" TextAlignment="Left"/>
-                    
+
                 </StackPanel>
-                
+
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="20 20">
-                    <TextBox Text="{Binding AnimalTypeName}"
-                             TextAlignment="Center"/>    
+                    <TextBox Text="{Binding AnimalTypeName}" TextAlignment="Center"/>
                 </StackPanel>
-     
+
             </Grid>
 
-            <Button Width="150px" Height="Auto" FontSize="{Binding FontSizeUserControl}" Margin="20" Content="Create" VerticalAlignment="Bottom">
+            <Button Width="170px" Height="40px" 
+                    FontSize="{Binding FontSizeUserControl}" 
+                    Margin="20" Padding="0,0,6,5"
+                    Content="Create" 
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+                    VerticalAlignment="Bottom" 
+                    Foreground="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CreateRecord}" />
